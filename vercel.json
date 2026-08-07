@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "api/**",
+      "excludeFiles": "api/**/__pycache__/**"
+    }
+  }
+}
