@@ -70,8 +70,8 @@ async def health():
     }
 
 
-@app.post("/predict")
-@app.post("/api/predict")
+@app.post("/inference")
+@app.post("/api/inference")
 def predict_endpoint(payload: InferencePayload, auth: HTTPAuthorizationCredentials = Depends(security)):
     if not auth or auth.credentials != API_KEY:
         raise HTTPException(

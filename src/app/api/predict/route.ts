@@ -46,7 +46,7 @@ export const POST = async (request: Request) => {
 			...data
 		};
 
-		const mlEndpoint = process.env.ML_MODEL_ENDPOINT || "http://localhost:8000/api/predict";
+		const mlEndpoint = process.env.ML_MODEL_ENDPOINT || "http://localhost:8000/api/inference";
 
 		const headers: Record<string, string> = { "Content-Type": "application/json" };
 		if (process.env.ML_MODEL_AUTH_HEADER) {
