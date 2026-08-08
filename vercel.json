@@ -1,8 +1,7 @@
 {
   "functions": {
     "api/inference.py": {
-      "includeFiles": "api/**",
-      "excludeFiles": "api/**/__pycache__/**"
+      "includeFiles": "api/model.xgb, api/model_features.json"
     }
   }
 }
