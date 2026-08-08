@@ -19,8 +19,6 @@ const ResultSection = ({ predictionResult, payload }: PropsType) => {
 
 	const [isCopied, setIsCopied] = useState(false);
 
-	console.log(predictionResult);
-
 	const handleCopy = async () => {
 		try {
 			await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
@@ -29,7 +27,7 @@ const ResultSection = ({ predictionResult, payload }: PropsType) => {
 				setIsCopied(false);
 			}, 2000);
 		} catch (err) {
-			console.error("Gagal menyalin teks: ", err);
+			console.error("Failed to copy: ", err);
 		}
 	};
 

@@ -48,6 +48,7 @@
 	--sage-light: oklch(94.488% 0.01184 145.903);
 	--rose-soft: oklch(92.754% 0.0137 33.932);
 	--espresso: oklch(26.294% 0.01586 31.193);
+	--warning: oklch(83.747% 0.11827 93.122);
 }
 
 @theme inline {
@@ -101,6 +102,7 @@
 	--color-rose-soft: var(--rose-soft);
 	--color-espresso: var(--espresso);
 	--color-espresso-light: var(--espresso-light);
+	--color-warning: var(--warning)
 }
 
 @layer base {

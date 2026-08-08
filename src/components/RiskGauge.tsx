@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { AlertCircle, AlertTriangle, CheckCircle2, Info } from "lucide-react";
+import { AlertCircle, AlertTriangle, CheckCircle2, Info, LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface RiskGaugeProps {
@@ -11,10 +11,8 @@ interface RiskGaugeProps {
 	positiveProba?: number;
 }
 
-export default function RiskGauge({ confidence, labels, riskLevel }: RiskGaugeProps) {
+const RiskGauge = ({ confidence, labels, riskLevel }: RiskGaugeProps) => {
 	const [animatedScore, setAnimatedScore] = useState(0);
-
-	console.log(riskLevel);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -23,7 +21,12 @@ export default function RiskGauge({ confidence, labels, riskLevel }: RiskGaugePr
 		return () => clearTimeout(timer);
 	}, [confidence]);
 
-	const getStatusDetails = () => {
+	const getStatusDetails = (): {
+		badgeColor: string;
+		label: string;
+		Icon: LucideIcon;
+		textColor?: string;
+	} => {
 		if (labels === "positive") {
 			return {
 				badgeColor: "bg-terracotta",
@@ -32,30 +35,12 @@ export default function RiskGauge({ confidence, labels, riskLevel }: RiskGaugePr
 			};
 		}
 
-		switch (riskLevel) {
-			case "high":
-				return {
-					badgeColor: "bg-terracotta",
-					textColor: "text-terracotta",
-					label: "Negative",
-					Icon: AlertCircle
-				};
-			case "moderate":
-				return {
-					badgeColor: "bg-taupe",
-					textColor: "text-taupe",
-					label: "Negative",
-					Icon: Info
-				};
-			case "low":
-			default:
-				return {
-					badgeColor: "bg-sage",
-					textColor: "text-sage",
-					label: "Negative",
-					Icon: CheckCircle2
-				};
-		}
+		return {
+			badgeColor: "bg-sage",
+			label: "Negative",
+			textColor: riskLevel === "high" ? "text-rose" : riskLevel === "moderate" ? "text-warning" : "text-sage",
+			Icon: riskLevel === "high" ? AlertCircle : riskLevel === "moderate" ? Info : CheckCircle2
+		};
 	};
 
 	const { badgeColor, textColor, label, Icon } = getStatusDetails();
@@ -72,7 +57,7 @@ export default function RiskGauge({ confidence, labels, riskLevel }: RiskGaugePr
 					<defs>
 						<linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
 							<stop offset="0%" stopColor="var(--sage)"></stop>
-							<stop offset="50%" stopColor="#E4C86A"></stop>
+							<stop offset="50%" stopColor="var(--warning)"></stop>
 							<stop offset="100%" stopColor="var(--brand-terracotta)"></stop>
 						</linearGradient>
 					</defs>
@@ -133,14 +118,6 @@ export default function RiskGauge({ confidence, labels, riskLevel }: RiskGaugePr
 					<Icon className="size-4" aria-hidden="true" />
 					{label}
 				</span>
-				{/* {riskLevel && (
-					<div className="mt-3 px-5 py-3.5 bg-linear-to-b from-[#FCFAF8] to-transparent border border-black/4 rounded-2xl max-w-xs w-full shadow-sm">
-						<p className="text-[13px] text-espresso/75 font-medium leading-relaxed text-center">
-							You are classified as a <span className="font-semibold text-espresso capitalize">{riskLevel}-risk</span>{" "}
-							profile for being diagnosed with PCOS.
-						</p>
-					</div>
-				)} */}
 				{riskLevel && (
 					<p className="text-[13px] text-espresso/70 font-medium max-w-70 text-center leading-[1.6] mt-2">
 						You are classified as a <span className={cn("font-semibold capitalize", textColor)}>{riskLevel}-risk</span>{" "}
@@ -150,4 +127,6 @@ export default function RiskGauge({ confidence, labels, riskLevel }: RiskGaugePr
 			</div>
 		</div>
 	);
-}
+};
+
+export default RiskGauge;
