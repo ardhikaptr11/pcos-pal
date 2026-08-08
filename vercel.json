@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/index.py": {
+    "api/inference.py": {
       "includeFiles": "api/**",
       "excludeFiles": "api/**/__pycache__/**"
     }
